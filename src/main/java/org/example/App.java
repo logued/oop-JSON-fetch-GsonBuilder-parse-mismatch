@@ -2,7 +2,6 @@ package org.example;                     // March 2023
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
@@ -12,8 +11,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Using GSON GsonBuilder to parse JSON into Java Objects that DO NOT have a
- * matching structure.
+ * Using GSON Deserializer and GsonBuilder to parse JSON into Java Objects
+ * that DO NOT have a matching structure and/or matching field names.
  */
 
 // Demonstrates how to fetch JSON from a remote API, and

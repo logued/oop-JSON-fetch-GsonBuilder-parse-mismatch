@@ -1,8 +1,12 @@
 package org.example;
 
-// Class that defines the deserialize() method that will be used by Gson to
-// extract data from the JSON string, and put that data into the corresponding fields
+// Class that implements the JsonDeserializer interface defined in Gson library
+// and implements the deserialize() method that will be used by Gson parser to
+// extract data from the JSON string, and put that data into the desired fields
 // in the Java Objects (IssPositionAtTime object).
+// This is used when our Java classes do NOT exactly the structure and key names
+// used in the JSON data. A mapping myst be performed using code.
+//
 // This is where we MAP the structure of the JSON String onto the Java object.
 
 import com.google.gson.*;
@@ -13,6 +17,19 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.TimeZone;
 
+/**
+ * Create our own Deserializer class that implements the JsonDeserializer for
+ * a specific class type (here, the IssPositionAtTime class).
+ *
+ * The deserialize() method will be called by the Gson parser when it needs to
+ * parse a JSON String.  In this method, we 'get' the JSON as an JsonObject, and
+ * we use appropriate JsonObject methods to extract the required fields.
+ * We then instantiate a new Java object (ISSPositionAtTime) and populate it with
+ * the data extracted from the JsonObject.
+ *
+ * JSON String --> JsonObject --> Java Object
+ *
+ */
 public class JsonDeserializerIssPosition implements JsonDeserializer<IssPositionAtTime> {
 
     public IssPositionAtTime deserialize(JsonElement json,
@@ -37,22 +54,8 @@ public class JsonDeserializerIssPosition implements JsonDeserializer<IssPosition
         localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp*1000),
                                                         TimeZone.getDefault().toZoneId());
 
-//        IssPositionAtTime issPosition = new IssPositionAtTime(localDateTime, message, latitude, longitude);
-
-        IssPositionAtTime issPosition = new IssPositionAtTime();
-        issPosition.setDateTime(localDateTime);
-        issPosition.setMessage(message);
-        issPosition.setLatitude(latitude);
-        issPosition.setLongitude(longitude);
-
-//
-// employee = new Employee(); // can we call parameterised constructor?
-//        employee.setId(id);
-//        employee.setFirstName(firstName);
-//        employee.setLastName(lastName);
-//        employee.setDate(date);
-//        employee.setPhoto(photoPath);
-//        employee.setMarried(married);
+        // construct a new object using the retrieved values
+        IssPositionAtTime issPosition = new IssPositionAtTime(localDateTime, message, latitude, longitude);
 
         return issPosition;
     }
