@@ -14,9 +14,9 @@ public class IssPositionAtTime {
     // The ISS API returns the timestamp in Unix Time
     // so, it is the number of seconds since 1st January 1970.
     //
-    public IssPositionAtTime(LocalDateTime ldt, String message, double latitude, double longitude) {
+    public IssPositionAtTime(LocalDateTime dateTime, String message, double latitude, double longitude) {
         //this.dateTime = LocalDateTime.ofEpochSecond(unixTimeInSeconds,0, ZoneOffset.of("Europe/Dublin"));
-        this.dateTime = ldt;
+        this.dateTime = dateTime;
         this.message = message;
         this.latitude = latitude;
         this.longitude = longitude;
