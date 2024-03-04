@@ -43,14 +43,8 @@ public class MainApp {
     public void start() {
         System.out.println("GSON - GsonBuilder demonstration on ISS API data");
         final String url = "http://api.open-notify.org/iss-now.json";
-        String jsonString=null;
-        try {
-            jsonString = fetchJsonFromAPI(url);
-            System.out.println("JSON has been fetched successfully.");
-        }
-        catch ( IOException ex ) {
-            System.out.println("API Access problem: " + ex.getMessage());
-        }
+
+        String jsonString=  fetchJsonFromAPI(url);
 
         if (jsonString == null) {
             System.out.println("Connection failed, exiting.");
@@ -88,7 +82,7 @@ public class MainApp {
      * @return a Json String
      * @throws IOException
      */
-    private String fetchJsonFromAPI(String url) throws IOException
+    private String fetchJsonFromAPI(String url)
     {
         // Ref:  https://www.baeldung.com/java-9-http-client
         HttpClient client = HttpClient.newHttpClient();
@@ -103,7 +97,7 @@ public class MainApp {
         // client.send() throws a Checked Exceptions, so we need to provide a try-catch block
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
+        } catch ( IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
